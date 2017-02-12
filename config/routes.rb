@@ -1,6 +1,6 @@
 LibreTPV::Application.routes.draw do
-  root :to => 'albarans#index', :seccion => "caja", :controller => "albarans", :action => "index"
+  root :to => 'albaranes#index', :seccion => "caja", :controller => "albaranes", :action => "index"
   # map.connect ':seccion/:controller/:action/:id'
   match ':seccion/:controller(/:action(/:id))'
-  # map.root :seccion => "caja", :controller => "albarans"
+  # map.root :seccion => "caja", :controller => "albaranes"
 end

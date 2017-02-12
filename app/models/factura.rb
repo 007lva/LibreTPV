@@ -29,7 +29,7 @@ class Factura < ActiveRecord::Base
   #belongs_to :albaran
   belongs_to :proveedor
   has_many :pagos
-  has_many :albarans
+  has_many :albaranes
 
   after_create :generar_numero_factura
   before_destroy :verificar_borrado
@@ -38,7 +38,7 @@ class Factura < ActiveRecord::Base
 
   # devuelve el codigo de la factura o el del albaran si no existe
   def codigo_mayusculas
-    (self.codigo == "N/A" && self.albarans.first && self.albarans.first.codigo != "") ? "(*) " + self.albarans.first.codigo.upcase : self.codigo.upcase
+    (self.codigo == "N/A" && self.albaranes.first && self.albaranes.first.codigo != "") ? "(*) " + self.albaranes.first.codigo.upcase : self.codigo.upcase
   end
 
   # devuelve el importe pendiente de pago
@@ -50,7 +50,7 @@ class Factura < ActiveRecord::Base
 
   # devuelve el debe de una factura
   def debe
-    if (!self.albarans.empty? && ( (self.albarans.first.proveedor_id && self.importe >= 0) || (self.albarans.first.cliente_id && self.importe < 0))) || (self.proveedor && self.importe >= 0)
+    if (!self.albaranes.empty? && ( (self.albaranes.first.proveedor_id && self.importe >= 0) || (self.albaranes.first.cliente_id && self.importe < 0))) || (self.proveedor && self.importe >= 0)
       return self.importe.abs
     else
       return nil 
@@ -59,7 +59,7 @@ class Factura < ActiveRecord::Base
 
   # devuelve el haber de una factura
   def haber
-    if (!self.albarans.empty? && ( (self.albarans.first.cliente_id && self.importe >= 0) || (self.albarans.first.proveedor_id && self.importe <0))) || (self.proveedor && self.importe < 0)
+    if (!self.albaranes.empty? && ( (self.albaranes.first.cliente_id && self.importe >= 0) || (self.albaranes.first.proveedor_id && self.importe <0))) || (self.proveedor && self.importe < 0)
       return self.importe.abs
     else
       return nil 
@@ -68,11 +68,11 @@ class Factura < ActiveRecord::Base
 
   # devuelve el concepto de una factura
   def concepto
-    unless (self.albarans.nil?)
-      if self.albarans.first.cliente_id
-        concepto = (self.importe>=0?"Venta ":"Devolucion ") + self.albarans.first.cliente.nombre
+    unless (self.albaranes.nil?)
+      if self.albaranes.first.cliente_id
+        concepto = (self.importe>=0?"Venta ":"Devolucion ") + self.albaranes.first.cliente.nombre
       else
-        concepto = (self.importe>=0?"Compra ":"Devolucion compra ") + self.albarans.first.proveedor.nombre
+        concepto = (self.importe>=0?"Compra ":"Devolucion compra ") + self.albaranes.first.proveedor.nombre
       end
     else
       concepto = (self.importe>0?"Factura ":"Cobro ") + (self.proveedor ? self.proveedor.nombre : "REVISAME!!!")
@@ -87,8 +87,8 @@ class Factura < ActiveRecord::Base
     if ( self.valor_iva )
       return self.importe / (1 + (valor_iva.to_f - valor_irpf.to_f)/100 )
     # Si la factura corresponde a un albaran 
-    elsif !self.albarans.empty?
-      return self.importe_base ? self.importe_base : self.albarans.inject(0) { |val,alb| val + alb.base_imponible }
+    elsif !self.albaranes.empty?
+      return self.importe_base ? self.importe_base : self.albaranes.inject(0) { |val,alb| val + alb.base_imponible }
     end
   end
 
@@ -122,7 +122,7 @@ class Factura < ActiveRecord::Base
       return { self.valor_iva.to_s => [self.base_imponible ,self.base_imponible.abs * self.valor_iva.to_f/100, self.importe] }
     else
       total = {}
-      self.albarans.each do |alb|
+      self.albaranes.each do |alb|
         alb.desglose_por_iva.each do |key,values| 
           if total[key]
             total[key] = total[key].zip(values).map {|a| a.inject(:+)}
@@ -137,7 +137,7 @@ class Factura < ActiveRecord::Base
 
   private
     def generar_numero_factura
-      if !albarans.empty? && albarans.first.cliente_id
+      if !albaranes.empty? && albaranes.first.cliente_id
         prefijo = Configuracion.valor("PREFIJO FACTURA VENTA")
         numero = Configuracion.numero_nueva_venta
         self.codigo = prefijo + format("%010d", numero.to_s)

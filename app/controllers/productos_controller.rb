@@ -40,7 +40,7 @@ class ProductosController < ApplicationController
         @lineas = AlbaranLinea.paginate :page => params[:page], :per_page => paginado,
                 :order => 'nombre_producto ASC',
                 :include => [ :albaran ],
-                :conditions => "producto_id IS NOT NULL AND albarans.deposito IS true"
+                :conditions => "producto_id IS NOT NULL AND albaranes.deposito IS true"
     else
       @productos = Producto.paginate :page => params[:page], :per_page => paginado, :order => 'nombre'
     end

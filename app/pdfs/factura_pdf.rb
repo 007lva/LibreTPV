@@ -34,10 +34,10 @@ class FacturaPdf < Prawn::Document
     bounding_box([325, y_pos - 100], height: 100, width: 205) do
       text "Factura num.: " + @factura.codigo
       text "Fecha: " + @factura.fecha.strftime('%d/%m/%Y')
-      text "Cliente: " + @factura.albarans.first.cliente.nombre
-      text "N.I.F. " + @factura.albarans.first.cliente.cif
-      text @factura.albarans.first.cliente.direccion if @factura.albarans.first.cliente.direccion
-      text @factura.albarans.first.cliente.cp if @factura.albarans.first.cliente.cp
+      text "Cliente: " + @factura.albaranes.first.cliente.nombre
+      text "N.I.F. " + @factura.albaranes.first.cliente.cif
+      text @factura.albaranes.first.cliente.direccion if @factura.albaranes.first.cliente.direccion
+      text @factura.albaranes.first.cliente.cp if @factura.albaranes.first.cliente.cp
     end
   end
 
@@ -56,7 +56,7 @@ class FacturaPdf < Prawn::Document
     # Guarda la cabecera de la tabla
     data = [ columnas.collect{|c| c[:title]} ]
     # Recoge los productos de la factura
-    @factura.albarans.each do |alb|
+    @factura.albaranes.each do |alb|
       # Si la factura es de mas de un albaran, recorre todos
       alb.albaran_lineas.each do |linea|
         # Recoge los productos de un albaran

@@ -52,7 +52,7 @@ class AlbaranesCerradosController < ApplicationController
       @factura.fecha = Time.now
       @factura.codigo = "N/A"
       @factura.importe = @albaran.total
-      @factura.albarans << @albaran
+      @factura.albaranes << @albaran
       @factura.save
       flash[:error] = @factura
       if @factura.errors.empty?

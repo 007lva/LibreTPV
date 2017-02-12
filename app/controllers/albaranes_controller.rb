@@ -1,4 +1,4 @@
-class AlbaransController < ApplicationController
+class AlbaranesController < ApplicationController
 
   # Hace una busqueda de "albaranes" eliminando los vacios 
   before_filter :obtiene_albaranes, :only => [ :listado ]

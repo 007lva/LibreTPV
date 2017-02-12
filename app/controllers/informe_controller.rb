@@ -81,17 +81,17 @@ class InformeController < ApplicationController
   def productos_recibidos fecha_inicio, fecha_fin
     campos = [  ["Fecha", "albaran.fecha"], ["Producto", "nombre_producto"], ["PVP", "producto.precio", true], ["Proveedor", "albaran.proveedor.nombre"],
                 ["Cantidad", "cantidad"], ["P.Dist.", "precio_compra", true], ["% Descuento", "descuento"], ["Base Imponible", "subtotal", true], ["% IVA", "iva"], ["Total", "total", true] ]
-    condicion  = "albarans.proveedor_id IS NOT NULL AND albarans.cerrado"
-    condicion += " AND albarans.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
-    objetos = AlbaranLinea.find(:all, :order => 'albarans.fecha DESC', :include => 'albaran', :conditions => [ condicion ])
+    condicion  = "albaranes.proveedor_id IS NOT NULL AND albaranes.cerrado"
+    condicion += " AND albaranes.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
+    objetos = AlbaranLinea.find(:all, :order => 'albaranes.fecha DESC', :include => 'albaran', :conditions => [ condicion ])
     return genera_informe(objetos,campos)
   end
 
   def productos_recibidos_resumen fecha_inicio, fecha_fin
     campos = [  ["Cantidad", "cantidad"], ["Codigo", "codigo"], ["Producto", "nombre_producto"] ]
     productos = {}
-    condicion  = "albarans.proveedor_id IS NOT NULL AND albarans.cerrado"
-    condicion += " AND albarans.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
+    condicion  = "albaranes.proveedor_id IS NOT NULL AND albaranes.cerrado"
+    condicion += " AND albaranes.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
     AlbaranLinea.find(:all, :include => 'albaran', :conditions => [ condicion ]).each do |linea|
       if productos[linea.producto_id]
         productos[linea.producto_id]['cantidad'] += linea.cantidad
@@ -107,7 +107,7 @@ class InformeController < ApplicationController
   def facturas_venta fecha_inicio, fecha_fin
     campos = [  ["Fecha", "fecha"], ["Codigo", "codigo"], ["Cliente", "albaran.cliente.nombre"],
                 ["Base Imponible", "base_imponible", true], ["IVA", "iva_aplicado", true], ["Total", "importe", true] ]
-    condicion = "albarans.cliente_id IS NOT NULL AND facturas.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
+    condicion = "albaranes.cliente_id IS NOT NULL AND facturas.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
     objetos = Factura.find(:all, :order => 'facturas.fecha DESC', :include => 'albaran', :conditions => [ condicion ])
     return genera_informe(objetos,campos)
   end
@@ -115,7 +115,7 @@ class InformeController < ApplicationController
   def facturas_compra fecha_inicio, fecha_fin
     campos = [	["Fecha", "fecha"], ["Codigo", "codigo"], ["Proveedor", "albaran.proveedor.nombre"],
 		["Base Imponible", "base_imponible", true], ["IVA", "iva_aplicado", true], ["Total", "importe", true] ]
-    condicion = "albarans.proveedor_id IS NOT NULL AND facturas.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
+    condicion = "albaranes.proveedor_id IS NOT NULL AND facturas.fecha BETWEEN '" + fecha_inicio.to_s + "' AND '" + fecha_fin.to_s + "'"
     objetos = Factura.find(:all, :order => 'facturas.fecha DESC', :include => 'albaran', :conditions => [ condicion ])
     return genera_informe(objetos,campos)
   end

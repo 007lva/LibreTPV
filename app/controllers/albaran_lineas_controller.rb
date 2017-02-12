@@ -9,8 +9,8 @@ class AlbaranLineasController < ApplicationController
     if params[:factura_id]
       factura = Factura.find_by_id(params[:factura_id])
       @albaran_lineas = []
-      factura.albarans.each{|alb| @albaran_lineas += alb.albaran_lineas}
-      albaran = factura.albarans.first
+      factura.albaranes.each{|alb| @albaran_lineas += alb.albaran_lineas}
+      albaran = factura.albaranes.first
     else
       albaran = Albaran.find_by_id(params[:albaran_id])
       @albaran_lineas = albaran.albaran_lineas 
@@ -56,7 +56,7 @@ class AlbaranLineasController < ApplicationController
   def modificar
     @albaran_linea = AlbaranLinea.find(params[:id])
     @albaran_linea.update_attributes params[:albaran_linea]
-    redirect_to :controller => :albarans, :action => :editar, :id => params[:albaran_id]
+    redirect_to :controller => :albaranes, :action => :editar, :id => params[:albaran_id]
   end
 
   def asignar_linea
@@ -80,7 +80,7 @@ class AlbaranLineasController < ApplicationController
 
     end
     #flash[:error] = albaranlinea if albaranlinea.errors
-    redirect_to :controller => :albarans, :action => :editar, :id => albaranlinea.albaran_id
+    redirect_to :controller => :albaranes, :action => :editar, :id => albaranlinea.albaran_id
   end
 
   def borrar 
@@ -89,7 +89,7 @@ class AlbaranLineasController < ApplicationController
     if albaranlinea && albaran && !albaran.cerrado
       albaranlinea.destroy
     end
-    redirect_to :controller => :albarans, :action => :editar, :id => params[:albaran_id]
+    redirect_to :controller => :albaranes, :action => :editar, :id => params[:albaran_id]
   end
 
 	# Aplica el acumulado de una linea
@@ -99,7 +99,7 @@ class AlbaranLineasController < ApplicationController
     if albaranlinea && albaran.cliente
       albaranlinea.nueva_linea_descuento
     end
-    redirect_to :controller => :albarans, :action => :editar, :id => params[:albaran_id]
+    redirect_to :controller => :albaranes, :action => :editar, :id => params[:albaran_id]
   end
 
 end

@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class AlbaransControllerTest < ActionController::TestCase
+class AlbaranesControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:albarans)
+    assert_not_nil assigns(:albaranes)
   end
 
   test "should get new" do
@@ -21,25 +21,25 @@ class AlbaransControllerTest < ActionController::TestCase
   end
 
   test "should show albaran" do
-    get :show, :id => albarans(:one).to_param
+    get :show, :id => albaranes(:one).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => albarans(:one).to_param
+    get :edit, :id => albaranes(:one).to_param
     assert_response :success
   end
 
   test "should update albaran" do
-    put :update, :id => albarans(:one).to_param, :albaran => { }
+    put :update, :id => albaranes(:one).to_param, :albaran => { }
     assert_redirected_to albaran_path(assigns(:albaran))
   end
 
   test "should destroy albaran" do
     assert_difference('Albaran.count', -1) do
-      delete :destroy, :id => albarans(:one).to_param
+      delete :destroy, :id => albaranes(:one).to_param
     end
 
-    assert_redirected_to albarans_path
+    assert_redirected_to albaranes_path
   end
 end
