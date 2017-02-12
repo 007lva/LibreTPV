@@ -1,4 +1,4 @@
-class ProveedorController < ApplicationController
+class ProveedoresController < ApplicationController
 
   def index
     redirect_to :action => :listado

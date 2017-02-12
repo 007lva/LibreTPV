@@ -5,9 +5,11 @@ one:
   nombre: MyString
   descripcion: MyString
   url_imagen: MyString
+  precio: 1.0
 
 two:
   codigo: 1
   nombre: MyString
   descripcion: MyString
   url_imagen: MyString
+  precio: 1.0

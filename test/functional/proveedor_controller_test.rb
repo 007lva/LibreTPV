@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class ProveedorsControllerTest < ActionController::TestCase
+class ProveedorControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:proveedors)
+    assert_not_nil assigns(:proveedores)
   end
 
   test "should get new" do
@@ -21,25 +21,25 @@ class ProveedorsControllerTest < ActionController::TestCase
   end
 
   test "should show proveedor" do
-    get :show, :id => proveedors(:one).to_param
+    get :show, :id => proveedores(:one).to_param
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, :id => proveedors(:one).to_param
+    get :edit, :id => proveedores(:one).to_param
     assert_response :success
   end
 
   test "should update proveedor" do
-    put :update, :id => proveedors(:one).to_param, :proveedor => { }
+    put :update, :id => proveedores(:one).to_param, :proveedor => { }
     assert_redirected_to proveedor_path(assigns(:proveedor))
   end
 
   test "should destroy proveedor" do
     assert_difference('Proveedor.count', -1) do
-      delete :destroy, :id => proveedors(:one).to_param
+      delete :destroy, :id => proveedores(:one).to_param
     end
 
-    assert_redirected_to proveedors_path
+    assert_redirected_to proveedores_path
   end
 end

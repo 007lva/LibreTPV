@@ -316,7 +316,7 @@ module ApplicationHelper
                           { :rotulo => "Depósitos", :controlador => "deposito"},
 			  { :rotulo => "Albaranes aceptados", :controlador => "albaranes_cerrados"},
                           { :rotulo => "Albaranes de entrada", :controlador => "albaranes"},
-                          { :rotulo => "Proveedores" , :controlador => "proveedor"},
+                          { :rotulo => "Proveedores" , :controlador => "proveedores"},
                           { :rotulo => "Inventario", :controlador => "productos"} ]
       when "tesoreria"
         controladores = [ { :rotulo => "Informes", :controlador => "informe"},
