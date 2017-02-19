@@ -78,3 +78,8 @@ gem 'hpricot'
 gem 'prawn', '~> 1.3'
 gem 'prawn-table', '~> 0.2.2'
 gem 'test-unit'
+
+group :production do
+  gem 'pg'
+  gem 'rails_12factor', '0.0.2'
+end
