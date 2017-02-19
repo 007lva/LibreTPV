@@ -1,35 +1,11 @@
-development:
-  adapter: mysql2
-  socket: /var/run/mysqld/mysqld.sock
-  database: libretpv 
-  username: libretpv_user
-  password: libretpv_pass 
-  encoding: utf8
-
-drupal_development:
-  adapter: mysql2
-  reconnect: false
-  pool: 5
-  socket: /tmp/mysql.sock
-  database: drupal_database 
-  username: libretpv_user
-  password: libretpv_pass
-  encoding: utf8
-
 production:
-  adapter: mysql2
-  socket: /var/run/mysqld/mysqld.sock
-  database: libretpv 
-  username: libretpv_user
-  password: libretpv_pass 
-  encoding: utf8
+  adapter: postgresql
+  socket: /var/run/postgreql
+  database: libretpv_prod
+  username: postgres
 
 drupal_production:
-  adapter: mysql2
-  reconnect: false
-  pool: 5
-  socket: /tmp/mysql.sock
-  database: drupal_database 
-  username: libretpv_user
-  password: libretpv_pass
-  encoding: utf8
+  adapter: postgresql
+  socket: /var/run/postgresql
+  database: drupal_database
+  username: postgres
