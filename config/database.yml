@@ -1,0 +1,13 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: libretpv_prod
+  username: postgres
+
+drupal_production
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: drupal_database
+  username: postgres
