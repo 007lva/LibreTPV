@@ -78,7 +78,6 @@ GEM
     mime-types (1.25.1)
     mimemagic (0.3.0)
     multi_json (1.12.1)
-    mysql2 (0.3.21)
     paperclip (4.3.7)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -164,7 +163,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   gettext (>= 1.9.3)
   hpricot
-  mysql2 (~> 0.3.10)
   paperclip (~> 4.3)
   pg
   prawn (~> 1.3)
