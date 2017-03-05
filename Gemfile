@@ -5,7 +5,8 @@ gem 'rails', '4.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+#gem 'sqlite3'
+gem 'mysql2'
 
 gem 'railties', "= 4.2.8"
 gem 'actionpack', '= 4.2.8'
