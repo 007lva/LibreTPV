@@ -8,9 +8,15 @@ gem 'rails', '4.2.8'
 #gem 'sqlite3'
 gem 'mysql2'
 
+#  *** Remove these lines after decission ***
+# I 'm not sure about remove these three gems
 gem 'railties', "= 4.2.8"
+# https://github.com/rails/rails/blob/d1daf4c31301f5f5917b877fd63a817f5f4608ed/railties/lib/rails/railtie.rb
 gem 'actionpack', '= 4.2.8'
+# https://github.com/rails/rails/tree/master/actionpack
 gem 'activerecord-session_store'
+# http://stackoverflow.com/a/17656159
+#  *** remove before merge PR
 
 # Gems used only for assets and not required
 # in production environments by default.
