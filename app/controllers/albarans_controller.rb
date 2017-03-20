@@ -4,36 +4,36 @@ class AlbaransController < ApplicationController
   before_filter :obtiene_albaranes, only: [:listado]
 
   def index
-    flash[:mensaje] = "Listado de Albaranes de Proveedores pendientes de aceptar" if params[:seccion] == "productos"
-    flash[:mensaje] = "Ventas/Devoluciones Nuevas y Abiertas" if params[:seccion] == "caja"
-    flash[:mensaje] = "Listado de Truekes pendientes de aceptar" if params[:seccion] == "trueke"
-    redirect_to action: 'listado'
+    flash[:mensaje] = 'Listado de Albaranes de Proveedores pendientes de aceptar' if params[:seccion] == 'productos'
+    flash[:mensaje] = 'Ventas/Devoluciones Nuevas y Abiertas' if params[:seccion] == 'caja'
+    flash[:mensaje] = 'Listado de Truekes pendientes de aceptar' if params[:seccion] == 'trueke'
+    redirect_to :listado
   end
 
   def listado
   end
 
   def editar
-    @proveedores = Proveedor.find(:all, :order => 'nombre') if params[:seccion] == "productos"
-    @clientes = Cliente.find(:all, :order => 'nombre') if params[:seccion] == "caja"
+    @proveedores = Proveedor.order('nombre') if params[:seccion] == 'productos'
+    @clientes = Cliente.order('nombre') if params[:seccion] == 'caja'
     if params[:id]
       @albaran = Albaran.find(params[:id])
       @albaran_lineas = @albaran.albaran_lineas
-      @importe_total = 0;
+      @importe_total = 0
       @albaran_lineas.each do |linea|
         @importe_total += linea.total
       end
       params[:update] = 'lineas_albaran'
       params[:albaran_id] = @albaran.id
       params[:descuento] = @albaran.cliente.nil? ? @albaran.proveedor.descuento : @albaran.cliente.descuento
-      render :action => :modificar
+      render 'modificar'
     end
   end
 
   def modificar
     @albaran = params[:id] ? Albaran.find(params[:id]) : Albaran.new
     @albaran.update_attributes params[:albaran]
-    redirect_to :action => :editar, :id => @albaran.id
+    redirect_to :editar, id: @albaran.id
   end
 
   # Segun la seccion borramos productos o los incluimos
@@ -42,26 +42,26 @@ class AlbaransController < ApplicationController
     flash[:error] = params[:error] if params[:error]
     albaran = Albaran.find_by_id(params[:id]||params[:albaran_id])
     if albaran && !albaran.cerrado
-      if params[:seccion] == "productos"
-        flash[:mensaje] = "Albaran aceptado!"
+      if params[:seccion] == 'productos'
+        flash[:mensaje] = 'Albaran aceptado!'
       end
       albaran.cerrar(params[:seccion])
     end
-    redirect_to :action => :listado
+    redirect_to :listado
   end
 
   def borrar
-    albaran = Albaran.find_by_id params[:id]
+    albaran = Albaran.find(params[:id])
     if albaran && !albaran.cerrado
       albaran.destroy
       flash[:error] = albaran
     end
-    redirect_to :action => :listado
+    redirect_to :listado
   end
 
   def auto_complete_for_libro_titulo
     @productos = Producto.all(:conditions => ['nombre like ?', "%#{params[:search]}%"])
-    render :inline => "<%= auto_complete_result_2 @productos, :nombre %>"
+    render inline: "<%= auto_complete_result_2 @productos, :nombre %>"
   end
 
 
@@ -69,19 +69,19 @@ class AlbaransController < ApplicationController
     def obtiene_albaranes
       # Hace una limpieza de los albaranes vacios
       case params[:seccion]
-        when "caja"
-          condicion = "cliente_id"
+      when 'caja'
+          condicion = 'cliente_id'
           @clientes = Cliente.order('nombre')
-        when "productos"
-          condicion = "proveedor_id"
+        when 'productos'
+          condicion = 'proveedor_id'
           @proveedores = Proveedor.order('nombre')
-        when "trueke"
-          condicion = "cliente_id"
+        when 'trueke'
+          condicion = 'cliente_id'
       end
       @albarans = Albaran.where(cerrado: false)
       @albarans.each do |albaran|
         limpiar = false
-        albaran.destroy if AlbaranLinea.find_by(id: albaran.id)
+        albaran.destroy if AlbaranLinea.find(albaran.id)
       end
       @albarans = Albaran.where(order: 'fecha DESC', conditions: condicion + " IS NOT NULL AND NOT cerrado")
     end
