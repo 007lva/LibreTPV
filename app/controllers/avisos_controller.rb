@@ -1,32 +1,31 @@
 class AvisosController < ApplicationController
 
   def index
-    flash[:mensaje] = "Avisos"
-    redirect_to :action => :listado
+    flash[:mensaje] = 'Avisos'
+    redirect_to :listado
   end
 
   def listado
-    @avisos = Avisos.paginate :order => "criticidad desc, updated_at asc",
-		:page => (params[:format]=='xls' ? nil : params[:page]), :per_page => (params[:format_xls_count] || Configuracion.valor('PAGINADO') )
+    @avisos = Avisos.paginate order: 'criticidad desc, updated_at asc',
+		page: (params[:format] == 'xls' ? nil : params[:page]), per_page: (params[:format_xls_count] || Configuracion.valor('PAGINADO') )
   end
 
   def editar
-    @aviso = params[:id] ?  Avisos.find(params[:id]) : Avisos.new 
-    render :partial => "formulario"
+    @aviso = params[:id] ?  Avisos.find(params[:id]) : Avisos.new
+    render partial: 'formulario'
   end
 
   def modificar
     @aviso = params[:id] ?  Avisos.find(params[:id]) : Avisos.new
     @aviso.update_attributes params[:aviso]
     flash[:error] = @aviso
-    redirect_to :action => :listado
+    redirect_to :listado
   end
 
   def borrar
     @aviso = Avisos.find(params[:id])
     @aviso.destroy
     flash[:error] = @aviso
-    redirect_to :action => :listado
+    redirect_to :listado
   end
-
 end

@@ -1,8 +1,8 @@
 class CamposController < ApplicationController
 
   def index
-    flash[:mensaje] = "Listado de posibles campos de productos"
-    redirect_to :action => :listado
+    flash[:mensaje] = 'Listado de posibles campos de productos'
+    redirect_to :listado
   end
 
   def listado
@@ -13,18 +13,18 @@ class CamposController < ApplicationController
     @campo = params[:id] ?  Campo.find(params[:id]) : nil
   end
 
-  def modificar 
+  def modificar
     @campo = params[:id] ?  Campo.find(params[:id]) : Campo.new
     @campo.update_attributes params[:campo]
     flash[:error] = @campo
-    redirect_to :action => :listado
+    redirect_to :listado
   end
-  
-  def borrar 
+
+  def borrar
     @campo = Campo.find(params[:id])
     @campo.destroy
     flash[:error] = @campo
-    redirect_to :action => :listado
+    redirect_to :listado
   end
 
   # Lista los campos de una familia
@@ -32,9 +32,7 @@ class CamposController < ApplicationController
     @familia = Familia.find(params[:id])
     @campos = @familia.campo
     render :update do |page|
-      page.replace_html params[:update], :partial => "campos"
+      page.replace_html params[:update], partial: 'campos'
     end
   end
-
-
 end
