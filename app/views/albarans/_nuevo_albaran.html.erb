@@ -3,23 +3,22 @@
   <%= hidden_field 'albaran', 'codigo' %>
   <%# calendar_date_select_tag "e_date" %>
   <%= fecha 'Fecha', 'albaran', 'fecha', Date.today %>
-  <div class="elemento_x01">&nbsp;</div>
+  <div class='elemento_x01'>&nbsp;</div>
   <% if params[:seccion] == 'productos' %>
       <%= texto 'Código de Albaran', 'albaran', 'codigo' %>
   <% end %>
   <% if params[:seccion] == 'productos' %>
     <%= selector 'Proveedor', 'albaran', 'proveedor_id', @proveedores.map {|u| [u.nombre,u.id]} %>
-    <div class="elemento_x05">Depósito<br>
-      <%= check_box( "albaran", "deposito") %>
+    <div class='elemento_x05'>Depósito<br>
+      <%= check_box( 'albaran', 'deposito') %>
     </div>
-      <%= observe_field( "albaran_deposito" , :function => 'if( document.getElementById("albaran_deposito").checked ){ Element.show("devolucion"); } else { Element.hide("devolucion"); }' ) %>
-    <div id="devolucion" <% if @albaran.nil? || !@albaran.deposito %>style="display:none;"<% end %> >
-      <div class="elemento_x01">&nbsp;</div>
+      <%= observe_field( 'albaran_deposito' , :function => 'if( document.getElementById("albaran_deposito").checked ){ Element.show("devolucion"); } else { Element.hide("devolucion"); }' ) %>
+    <div id='devolucion' <% if @albaran.nil? || !@albaran.deposito %>style="display:none;"<% end %> >
+      <div class='elemento_x01'>&nbsp;</div>
       <%= fecha 'Fecha de Devolución', 'albaran', 'fecha_devolucion' %>
     </div>
   <% else %>
     <%= selector 'Cliente', 'albaran', 'cliente_id', @clientes.map {|u| [u.nombre,u.id]}, (@albaran.nil? ? 1 : @albaran.cliente_id) %>
   <% end %>
   <br/>
-<%= final_formulario({:etiqueta => (@albaran.nil? ? (params[:seccion] == 'productos' ? "Nuevo Albaran" : "Nueva Venta") : "Modificar" ) })%>
-
+<%= final_formulario({:etiqueta => (@albaran.nil? ? (params[:seccion] == 'productos' ? 'Nuevo Albaran' : 'Nueva Venta') : 'Modificar' ) })%>
