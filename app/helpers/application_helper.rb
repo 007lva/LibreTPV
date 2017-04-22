@@ -175,26 +175,6 @@ module ApplicationHelper
     return cadena + "</div>".html_safe
   end
 
-  def fecha rotulo, objeto, atributo, valor=nil, discards=[false, false]
-    cadena = ("<div class='elemento_x1'>" + rotulo + "<br/>").html_safe
-    #cadena << date_select(objeto, atributo, {:discard_day=>discards[0], :discard_month=>discards[1], :order => [:day,:month,:year], :class => "texto", :id => "formulario_campo_" + objeto + "_" + atributo, :default => valor})
-    otros = {}
-    otros[:year_range] =  [2000, Time.now.year + 10] if  otros[:year_range].nil?
-    otros[:size] = "10"
-    otros[:value] = I18n.l valor if valor
-    cadena << calendar_date_select(objeto, atributo, otros)
-    cadena += "</div>".html_safe
-    return cadena
-  end
-
-  def fecha_mes rotulo, objeto, atributo, valor=nil
-    fecha rotulo, objeto, atributo, valor, [true,false]
-  end
-
-  def fecha_anno rotulo, objeto, atributo, valor=nil
-    fecha rotulo, objeto, atributo, valor, [true,true]
-  end
-
   def selector rotulo, objeto, atributo, valores, valor=nil, tipo=nil, vacio=false
     cadena = ("<div class='elemento_" + (tipo || "x15") + "' id='selector_" + objeto + "_" + atributo + "'>" + rotulo + "<br/>").html_safe
     if valor && valor != ""

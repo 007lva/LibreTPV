@@ -5,8 +5,6 @@
       <%= selector 'Seleccione Informe', 'informe', 'tipo', @informes %>
       <%= observe_field( "informe_tipo" , :function => 'if( document.getElementById("informe_tipo").selectedIndex == 0 ){ Element.hide("fechas"); } else { Element.show("fechas"); }' ) %>
       <div id="fechas" style="display:none;">
-        <%= fecha "Fecha Inicio (incluida)", "informe", "fecha_inicio" %>
-        <%= fecha "Fecha Fin (incluida)", "informe", "fecha_fin" %>
       </div>
       <div class='elemento_derecha' id='boton_filtrado'><br/>
       <div class='elemento_derecha' id='boton_informe'><br/>

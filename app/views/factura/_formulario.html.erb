@@ -1,13 +1,11 @@
 
 <%= inicio_formulario( { :controller => 'factura', :action => 'modificar', :id => @factura }, false ) %>
   <div class="linea">
-  <%= fecha "Fecha", "factura", "fecha" %>
 
   <% if params[:seccion] == 'productos' %>
     <div class="elemento" %>Proveedor<br/><%= proveedor %></div>
     <%= texto "Código de Factura", 'factura', 'codigo' %>
     </div><div class="linea">
-    <%= fecha "Fecha Vencimiento", 'factura', 'fecha_vencimiento' %>
 
   <% elsif params[:seccion] == 'tesoreria' %>
     <%= texto "Base Imponible", 'factura', 'base_imponible' %>

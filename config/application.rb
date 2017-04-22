@@ -104,24 +104,5 @@ module LibreTPV
     ENV['TPV-DIRECCION'] = "c/ Arroyo del Olivar, 34"
     ENV['TPV-FACTURA-PREFIX'] = "LEDZ-"
     ENV['TPV-PRINTER'] = "lpr -P TM-T70 -o cpi=20"
-
-
-    # Configuracion inicial del calendar
-    CalendarDateSelect.format = :italian
-    CalendarDateSelect::FORMATS[:italian] = {
-      # Here's the code to pass to Date#strftime
-      :date => "%m/%d/%Y",
-      :time => " %I:%M %p",  # notice the space before time.  If you want date and time to be seperated with a space, put the leading space here.
-      :javascript_include => "format_italian"
-    }
-
-    # Selecciona el path donde estara el logo de la Tienda 
-    if ENV['LIBRETPV_SITEID'] && File.file?(ENV['RAILS_ETC'] + "logo/" + ENV['LIBRETPV_SITEID'] + ".png")
-      config.middleware.use Rack::Static, :urls => [ '/logo' ], :root => ENV['RAILS_ETC'] 
-      ENV['TPV_LOGO'] = "/logo/" + ENV['LIBRETPV_SITEID'] + ".png"
-    else
-      ENV['TPV_LOGO'] = "/images/logo.png"
-    end
-    
   end
 end
