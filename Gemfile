@@ -1,18 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.22.5'
+gem 'rails', github: 'rails', branch: '4-2-stable'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
 gem 'mysql2', '~> 0.3.10'
-
+gem 'activerecord-session_store'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -21,7 +21,7 @@ group :assets do
 end
 
 #gem 'jquery-rails'
-gem "prototype-rails", "~> 3.2.1"
+gem 'prototype-rails', github: 'rails/prototype-rails', branch: '4.2'
 gem 'prototype_legacy_helper', '0.0.0', :git => 'git://github.com/rails/prototype_legacy_helper.git' # Esto es para mantener soporte de form_remote_tag en Rails3
 
 # To use ActiveModel has_secure_password
@@ -70,7 +70,6 @@ gem "spreadsheet"
 gem "spreadsheet_on_rails", :git => 'git://github.com/10to1/spreadsheet_on_rails.git'
 gem "paperclip", "~> 4.3"
 gem 'will_paginate', '~> 3.0.0'
-gem 'calendar_date_select', :git => 'git://github.com/paneq/calendar_date_select.git'
 gem 'rufus-scheduler'
 gem 'hpricot'
 # Versiones posteriores de prawn requieren ruby 2
