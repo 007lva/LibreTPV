@@ -31,7 +31,7 @@ class Avisos < ActiveRecord::Base
   # Metodos incluidos a la clase 
   class << self
     def activos(visible=true)
-      Avisos.all :conditions => { :visible => visible }, :order => "criticidad desc"
+      Avisos.where(visible: visible).order('criticidad desc')
     end
 
     def depositos_no_devueltos

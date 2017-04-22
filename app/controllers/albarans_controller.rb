@@ -71,18 +71,18 @@ class AlbaransController < ApplicationController
       case params[:seccion]
         when "caja"
           condicion = "cliente_id"
-          @clientes = Cliente.find :all, :order => 'nombre'
+          @clientes = Cliente.order('nombre')
         when "productos"
           condicion = "proveedor_id"
           @proveedores = Proveedor.find :all, :order => 'nombre'
         when "trueke"
           condicion = "cliente_id"
       end
-      @albarans = Albaran.find :all, :conditions => { :cerrado => false } 
+      @albarans = Albaran.where(cerrado: false)
       @albarans.each do |albaran|
         limpiar = false
         albaran.destroy if AlbaranLinea.find_by_albaran_id(albaran.id).nil?
       end
-      @albarans = Albaran.find :all, :order => 'fecha DESC', :conditions => [ condicion + " IS NOT NULL AND NOT cerrado" ]
+      @albarans = Albaran.where(condicion + ' IS NOT NULL AND NOT cerrado').order('fecha DESC')
     end
 end
